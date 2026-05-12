@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+        <div class="page-header multi-box-container wrap" id="today-date-heading">
+            <h2 class="eighties-theme">
+                <img src="./images/calc_yellow.png" height="72" alt="fun yellow calculator">
+                Calculator: <span class="emphasis lg muted">  Friday the 6th of Feb</span>
+            </h2>
+            <h2 class="modern-theme"><span class="shadow-text" data-index="font-art">🎢</span> Calculator: <span class="emphasis lg muted">Friday the 6th of Feb</span></h2>
+            
+            <div id="loading-indicator">
+                <div class="eighties-loader"></div>
+                <div class="spinner hidden"></div>
+                <p class="loading hidden">Calculating...</p>
+            </div>
+        </div>
+
+        <div id="daily-log-section" class="card">
+            <h3>recent logged data</h3>
+            <p id="no-data-msg" style="font-size: x-large; text-align: center;" class="">
+                NO LOG ENTRY DATA WITHIN LAST 12 HOURS AVAILABLE TO CALCULATE
+            </p>
+            <table id="daily-log-table" class="hidden">
+                <thead id="daily-log-thead">
+                    <tr>
+                        <th>time</th>
+                        <th class="bgl-heading">BGL (mmol/L)</th>
+                        <th class="divider">food</th>
+                        <th>multiplier</th>
+                        <th class="divider rapid-text">bolus rapid</th>
+                        <th class="medium-text">bolus medium</th>
+                        <th class="divider">exercise</th>
+                    </tr>
+                </thead>
+                <tbody id="daily-log-tbody">
+                    <!-- tbody goes here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="future-calculation-section" class="card">
+            <h3>estimate actions</h3>
+            <br>
+            
+            <div class="button-container">
+                <label class="badge warning" id="bgl-interpolated-estimate">estimated bgl = ...</label>
+                <button class="outset-md secondary" id="add-foods">add food row</button>
+                <label class="badge primary" id="bolus-calc-estimate">estimated insulin = ...</label>
+            </div>
+            
+                    
+            <!-- entry row -->
+            <table id="future-calculation-table">
+                <thead id="future-calculation-thead">
+                    <tr>
+                        <th>time</th>
+                        <th class="bgl-heading">bgl</th>
+                        <th class="divider">food</th>
+                        <th>multiplier</th>
+                        <th class="divider rapid-text">bolus rapid</th>
+                        <th class="medium-text">bolus medium</th>
+                        <th class="divider">exercise</th>
+                    </tr>
+                </thead>
+                <tbody id="future-calculation-tbody">
+                    <tr>
+                        <td>
+                            <input type="time" data-value="time" id="time-estimate" value="" min="" placeholder="-" data-action="static-recalculate-bolus-on-change">
+                        </td>
+                        <td>
+                            <input type="number" data-value="bgl" id="bgl-now" value="" min="" placeholder="-" data-action="static-recalculate-bolus-on-change"> 
+                        </td>
+                        <!-- food chooser -->
+                        <td rowspan="1" id="food-selector-column"></td>
+                        <!-- food multiplier -->
+                        <td rowspan="1" id="food-multiplier-column"></td>
+                        <td>
+                            <input type="number" data-value="bolus-rapid-estimate" placeholder="units" value="" min="0.1" step="0.1">                        
+                        </td>
+                        <td>
+                            <input type="number" data-value="bolus-medium-estimate" placeholder="units" value="" min="0.1" step="0.1">
+                        </td>
+                        <td>
+                            <select id="exercise-selector" data-value="exercise-intensity" data-action="static-recalculate-bolus-on-change">
+                                <option>0 none</option>
+                                <option>1 slow</option>
+                                <option>2 lite</option>
+                                <option>3 midi</option>
+                                <option>4 fast</option>
+                                <option>5 HUGE</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- <div class="wrapper"> -->
+            <div class="side-by-side">
+                <div class="button-container">
+                    <button class="outset-md left-button" id="add-to-chart">
+                        preview on chart
+                    </button>
+                    <button class="outset-md middle-button" id="add-to-log">
+                        add as LOG ENTRY
+                    </button>
+                    <button class="outset-md right-button danger" id="reset-future">
+                        reset previews
+                    </button>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+
+        <div id="calculated-log-section" class="card">
+            <h3>calculated bgl effect by half-hour</h3>
+            <div class="toggle-switch insulin">
+                <button class="toggle-option" data-action="show-data">
+                    show
+                </button>
+                <button class="toggle-option" data-action="hide-data">
+                    hide
+                </button>
+            </div>
+
+            <div class="info-box" id="calc-info-show">
+                <ul>
+                    <li>data is split into half-hour 'boxes'</li>
+                    <li><span class="color-secondary">bgls</span> before the last real <span class="color-tertiary">bgl</span> use linear interpolation</li>
+                    <li><span class="color-primary">bgls</span> after the last real <span class="color-tertiary">bgl</span> are calculated based on effects of food, exercise, insulin</li>
+                    <li>you can preview future bgls on the chart -> these will display as real <span class="color-tertiary">bgls</span>. Push 'reset previews' when you're finished, or refresh the page.</li>
+                </ul>
+            </div>
+            
+            <table id="calculated-log-table">
+                <thead id="calculated-log-thead">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th class="divider" colspan="5">bgl FX during timezone</th>
+                    </tr>
+                    <tr>
+                        <th>time</th>
+                        <th class="bgl-heading">BGL (mmol/L)</th>
+                        <th class="divider">food glucose</th>
+                        <th>up +</th>
+                        <th class="divider">bolus units</th>
+                        <th>down -</th>
+                        <th class="divider">exercise factor</th>
+                    </tr>
+                </thead>
+                <tbody id="calculated-log-tbody">
+                    <!-- chart data goes in here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card side-by-side chart large" id="bgl-predict-chart">
+            <h3>past and future bgl</h3>
+            <div class="full-state">   
+                <!-- chart goes in here -->
+            </div>
+            <div class="empty-state icon">
+                no data available yet to view
+            </div>
+        </div>
+
+        <script type="module" src="./js/views/statistics/calculator.js"></script>
+
+    </body>
+</html>

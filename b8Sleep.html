@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="./styles/style.css">
+    </head>
+
+    <body>
+        <div class="page-header">
+            <h2 class="eighties-theme">
+                <img src="./images/cat_sleep_64.png" height="96" alt="sleeping kitty cat">
+                Sleep
+            </h2>
+            <h2 class="modern-theme"><span class="shadow-text" data-index="font-art">🛏</span> Sleep</h2>
+            <p>look closer at your sleep -> the good, the bad, and the average</p>
+
+            <div id="loading-indicator">
+                <div class="eighties-loader"></div>
+                <div class="spinner"></div>
+                <p class="loading">Calculating...</p>
+            </div>
+        </div>
+
+
+        <!-- A: MEDIAN TABLE -->
+        <div class="card">
+            <h3>MEDIAN BASAL UNITS (BY SLEEP/SEASON)</h3>
+            <table class="vertical-lined">
+                <thead>
+                    <tr>
+                        <th class="width-sm"></th>
+                        <th class="color-sleep good">good</th>
+                        <th class="color-sleep okay">okay</th>
+                        <th class="color-sleep poor">poor</th>
+                    </tr>
+                </thead>
+                <tbody id="median-tbody">
+                    <tr data-season="Summer">
+                        <th class="background width-sm" data-season="Summer">Summer</th>
+                        <td data-index="good"></td>
+                        <td data-index="okay"></td>
+                        <td data-index="poor"></td>
+                    </tr>
+                    <tr data-season="Autumn">
+                        <th class="background width-sm" data-season="Autumn">Autumn</th>
+                        <td data-index="good"></td>
+                        <td data-index="okay"></td>
+                        <td data-index="poor"></td>
+                    </tr>
+                    <tr data-season="Winter">
+                        <th class="background width-sm" data-season="Winter">Winter</th>
+                        <td data-index="good"></td>
+                        <td data-index="okay"></td>
+                        <td data-index="poor"></td>
+                    </tr>
+                    <tr data-season="Spring">
+                        <th class="background width-sm" data-season="Spring">Spring</th>
+                        <td data-index="good"></td>
+                        <td data-index="okay"></td>
+                        <td data-index="poor"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>    
+
+
+
+        <!-- SECTION B1 -->
+        <div class="card">
+
+            <h3>OVERNIGHT DATA - SLEEP SCORES</h3>
+            <div id="sleep-data-toggles" class="toggle-switch">
+                <button class="toggle-option" data-action="show-data">info</button>
+                <button class="toggle-option" data-action="hide-data">hide</button>
+            </div>
+            <br><br>
+
+            <div class ="card show-no-content" id="sleep-data-wrapper">
+                <p><span class="color-sleep good">good</span> -> slept through night + woke-up in target range</p>
+                <p><span class="color-sleep okay">okay</span> -> ONE OF: woke up during night, outside target range on wake-up</p>
+                <p><span class="color-sleep poor">poor</span> -> BOTH OF: woke up during night, outside target range on wake-up</p>
+                <br>
+                <p>TO FLAG A "woke-up":</p>
+                <p>- enter a bgl in "Log Entry" between 12am and 4am of the morning</p>
+                <p>- OR tick the box and an interpolated bgl will be entered into "Log Entry"</p>
+                <p>( unticking a 'woke-up' flag deletes that bgl in "Log Entry" )</p>
+            </div>
+            <br>       
+
+            <div class="side-by-side unshadowed">            
+                <h4 text-align="center">FILTER DATA BY:</h4>
+                <div class="button-container">                
+                    <select id="sleep-score-selected" data-index="sleep" class="width-lg">
+                        <option>...</option>
+                        <option class="color-sleep good">good</option>
+                        <option class="color-sleep okay">okay</option>
+                        <option class="color-sleep poor">poor</option>
+                    </select>
+                    <select id="season-selected" data-index="season" class="width-lg">
+                        <option>...</option>
+                        <option data-season="Summer">Summer</option>
+                        <option data-season="Autumn">Autumn</option>
+                        <option data-season="Winter">Winter</option>
+                        <option data-season="Spring">Spring</option>
+                    </select>
+                </div>
+
+                <div class="side-by-side unshadowed">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="2" class="divider">pre-bed</th>
+                                <th colspan="2" class="divider">during night</th>
+                                <th colspan="2" class="divider">wake-up</th>
+                            </tr>
+                            <tr>
+                                <th>night of</th>
+                                <th class="divider bgl-heading">bgl</th>
+                                <th>basal</th>
+                                <th class="divider">bgl</th>
+                                <th>woke up?</th>
+                                <th class="divider">bgl</th>
+                                <th>sleep score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sleep-data-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        
+        <script type="module" src="./js/views/statistics/sleep.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BGL Pal</title>
+        
+        <link rel="stylesheet" href="./styles/style.css">
+        <link rel="icon" type="image/x-icon" href="./images/bglPal.png">
+    </head>
+    
+    <body>        
+        <div id="app">
+            <nav id="main-nav" class="main-nav">
+                <div class="nav-header">
+                    <h1>BGL Pal</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#/">Home</a></li>
+                    <li><a href="#/log">Log Entry</a></li>
+                    <li><a href="#/settings">Settings</a></li>
+                    <li class="nav-dropdown">
+                        <a>Statistics</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/statistics/calculator">Calculator</a></li>
+                            <li><a href="#/statistics/food-database">Food Database</a></li>
+                            <li><a href="#/statistics/week-pattern">Week Pattern</a></li>
+                            <li><a href="#/statistics/sleep">Sleep</a></li>
+                            <li><a href="#/statistics/meal">Meal</a></li>
+                            <li><a href="#/statistics/exercise">Exercise</a></li>
+                            <li><a href="#/statistics/time-of-day-ratio">Time of Day Ratio</a></li>
+                            <li><a href="#/statistics/insulin-speed">Insulin Speed</a></li>                        
+                        </ul>
+                    </li>
+                    <li><a href="#/about">About</a></li>
+                </ul>
+            </nav>
+            
+            <main id="main-content" class="main-content">
+                <div id="view-container"></div>
+            </main>
+        </div>
+
+        <!-- Core JavaScript Modules -->
+        <script type="module" src="./js/utils/storage.js"></script>
+        <script type="module" src="./js/utils/helpers.js"></script>
+        <script type="module" src="./js/utils/chartHelpers.js"></script>
+        <script type="module" src="./js/utils/chart.js"></script>    
+        <script type="module" src="./js/utils/csvService.js"></script>
+        <script type="module" src="./js/router.js"></script>
+        
+        <!-- View Modules -->
+        <script type="module" src="./js/views/home.js"></script>
+        <script type="module" src="./js/views/log.js"></script>
+        <script type="module" src="./js/views/settings.js"></script>
+        <script type="module" src="./js/views/statistics/meal.js"></script>
+        <script type="module" src="./js/views/statistics/exercise.js"></script>
+        <script type="module" src="./js/views/statistics/calculator.js"></script>
+        <script type="module" src="./js/views/statistics/weekPattern.js"></script>
+        <script type="module" src="./js/views/statistics/foodDatabase.js"></script>
+        <script type="module" src="./js/views/statistics/timeOfDayRatio.js"></script>
+        <script type="module" src="./js/views/statistics/insulinSpeed.js"></script>
+        <script type="module" src="./js/views/statistics/sleep.js"></script>
+        <script type="module" src="./js/views/about.js"></script>
+        
+        <!-- Application Entry Point -->
+        <script type="module" src="./js/app.js"></script>
+    </body>
+</html>
