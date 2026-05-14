@@ -347,7 +347,7 @@ export const ChartGAdd = {
         const height = options.height;
         const name = options.name ?? '';
         
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const svg = document.createElementNS('https://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('name', name);
         svg.setAttribute('width', '100%');
         svg.setAttribute('height', height);
@@ -365,7 +365,7 @@ export const ChartGAdd = {
         const width = options.width;
         const height = options.height;
         
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const svg = document.createElementNS('https://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
         container.append(svg);
@@ -376,7 +376,7 @@ export const ChartGAdd = {
 
     //------- [GROUP HELPERS 2: CIRCLE G COMPONENT] ----------
     circleSimple(chartGroup, point, xScale, yScale) {
-        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        const circle = document.createElementNS('https://www.w3.org/2000/svg', 'circle');
         circle.setAttribute('cx', xScale(point.x));
         circle.setAttribute('cy', yScale(point.y));
         circle.setAttribute('class', point.circleClass?? '');
@@ -388,7 +388,7 @@ export const ChartGAdd = {
     linearLineSimple(chartGroup, lineObject, xScale, yScale) {
         console.log(lineObject);
 
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        const line = document.createElementNS('https://www.w3.org/2000/svg', 'line');
         line.setAttribute('x1', xScale(lineObject.x1));
         line.setAttribute('y1', yScale(lineObject.y1));
         line.setAttribute('x2', xScale(lineObject.x2));
@@ -403,7 +403,7 @@ export const ChartGAdd = {
     lineSimple(chartGroup, lineObject, xScale, yScale) {
         console.log(lineObject);
 
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        const line = document.createElementNS('https://www.w3.org/2000/svg', 'line');
         line.setAttribute('x1', xScale(lineObject.x1));
         line.setAttribute('y1', yScale(lineObject.y1));
         line.setAttribute('x2', xScale(lineObject.x2));
@@ -433,7 +433,7 @@ export const ChartGAdd = {
 
     //----- [3.3B: ADD IT TO CHART GROUP] ------
     addPathDataToChartGroup(chartGroup, pathData, pathClass) {
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const path = document.createElementNS('https://www.w3.org/2000/svg', 'path');
         path.setAttribute('d', pathData);
         path.setAttribute('class', pathClass?? '');
         chartGroup.append(path);
@@ -447,7 +447,7 @@ export const ChartGAdd = {
             return `${command} ${xScale(point.x)} ${yScale(point.y)}`;      //point.x = 60 + (( point.x - 0 )/( 5 - 0?? 1)) * 700 - e.g. x.max will return 60 + 700px
         }).join(' ');
 
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const path = document.createElementNS('https://www.w3.org/2000/svg', 'path');
         path.setAttribute('d', pathData);
         path.setAttribute('class', pathClass?? '');
         chartGroup.append(path);
@@ -487,7 +487,7 @@ export const ChartAxes = {
         else if(yScale) yCorrectHeight = yScale(0); //use the formula if wanted - can still use 'U' type
         else yCorrectHeight = chartHeight + pad.top;
         
-        const xAxisLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        const xAxisLine = document.createElementNS('https://www.w3.org/2000/svg', 'line');
         xAxisLine.setAttribute('x1', pad.left);
         xAxisLine.setAttribute('y1', yCorrectHeight);
         xAxisLine.setAttribute('x2', width - pad.right);
@@ -495,7 +495,7 @@ export const ChartAxes = {
         xAxisLine.setAttribute('class', options.chartClass?? '');
         chartGroup.append(xAxisLine);
 
-        const yAxisLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        const yAxisLine = document.createElementNS('https://www.w3.org/2000/svg', 'line');
         yAxisLine.setAttribute('x1', pad.left);
         yAxisLine.setAttribute('y1', pad.top);
         yAxisLine.setAttribute('x2', pad.left);
@@ -505,7 +505,7 @@ export const ChartAxes = {
 
         //ie box-type container
         if(type === 'H') {
-            const yAxisLineRight = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            const yAxisLineRight = document.createElementNS('https://www.w3.org/2000/svg', 'line');
             yAxisLineRight.setAttribute('x1', pad.left + chartWidth);
             yAxisLineRight.setAttribute('y1', pad.top);
             yAxisLineRight.setAttribute('x2', pad.left + chartWidth);
@@ -522,21 +522,21 @@ export const ChartAxes = {
         // const chartHeight = options.chartHeight;
         // const pad = options.pad;
         
-        const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const xLabel = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         xLabel.setAttribute('x', xScale(xMax));
         xLabel.setAttribute('y', yScale(0)+20);
         xLabel.setAttribute('class', options.chartClass?? '');
         xLabel.textContent = xMax;
         chartGroup.append(xLabel);
 
-        const yMinLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const yMinLabel = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         yMinLabel.setAttribute('x', xScale(0));  //20
         yMinLabel.setAttribute('y', yScale(yMin));  //30 + (365/2)
         yMinLabel.setAttribute('class', options.chartClass?? '');
         yMinLabel.textContent = HelpConvert.displayAsCorrectGlucoseUnit(yMin);
         chartGroup.append(yMinLabel);
 
-        const yMaxLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const yMaxLabel = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         yMaxLabel.setAttribute('x', xScale(0));  //20
         yMaxLabel.setAttribute('y', yScale(yMax));  //30 + (365/2)
         yMaxLabel.setAttribute('class', options.chartClass?? '');
@@ -554,14 +554,14 @@ export const ChartAxes = {
         const centreX = pad.left - 10;
         const centreY = pad.top + chartHeight/2;
 
-        const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const xLabel = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         xLabel.setAttribute('x', pad.left + chartWidth/2);
         xLabel.setAttribute('y', height*0.975);
         xLabel.setAttribute('class', options.chartClass?? '');
         xLabel.textContent = options.xLabel;
         chartGroup.append(xLabel);
         
-        const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const yLabel = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         yLabel.setAttribute('x', centreX);  //20
         yLabel.setAttribute('y', centreY);  //30 + (365/2)
         yLabel.setAttribute('class', options.chartClass?? '');
@@ -576,7 +576,7 @@ export const ChartAxes = {
         const pad = options.pad;
         const chartWidth = options.chartWidth;
 
-        const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const xLabel = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         xLabel.setAttribute('x', pad.left + chartWidth/2);
         xLabel.setAttribute('y', height - 10);
         xLabel.setAttribute('class', options.chartClass?? '');
@@ -592,7 +592,7 @@ export const ChartAxes = {
         const centreY = pad.top + chartHeight/2;
         //chartwidth = 345
 
-        const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const yLabel = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         yLabel.setAttribute('x', centreX);
         yLabel.setAttribute('y', centreY);
         yLabel.setAttribute('class', options.chartClass?? '');
@@ -631,7 +631,7 @@ export const ChartAxes = {
                 const labelY = tickY - labelUpShift;
                 // const labelY = tickY + labelShift
                 
-                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+                const tick = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
                 tick.setAttribute('x1', tickXleft);
                 tick.setAttribute('y1', tickY); //start Y at the axis line
                 tick.setAttribute('x2', tickXright);
@@ -641,7 +641,7 @@ export const ChartAxes = {
 
                 // 1 FEWER LABELS THAN TICKS
                 if(i === numTicks - 1) continue;
-                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                const label = document.createElementNS('https://www.w3.org/2000/svg', 'text');
                 label.setAttribute('x', labelX);
                 label.setAttribute('y', labelY);   //position 30px below the tick
                 label.setAttribute('class', options.chartClass?? '');
@@ -669,7 +669,7 @@ export const ChartAxes = {
             }
             const labelX = equalXarray? tickX + labelMoveX: tickX + labelSideShift;
             
-            const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+            const tick = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
             tick.setAttribute('x1', tickX);
             tick.setAttribute('y1', tickYtop); //start Y at the axis line
             tick.setAttribute('x2', tickX);
@@ -681,7 +681,7 @@ export const ChartAxes = {
 
             // 1 FEWER LABELS THAN TICKS
             if(i === numTicks - 1) continue;
-            const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            const label = document.createElementNS('https://www.w3.org/2000/svg', 'text');
             label.setAttribute('x', labelX);
             label.setAttribute('y', labelY);   //position 30px below the tick
             label.setAttribute('class', options.chartClass?? '');
@@ -716,7 +716,7 @@ export const ChartAxes = {
         // const tickYbottom = topMargin + chartHeight + tickLength;
         // const labelY = tickYbottom + labelDrop;
         
-        const tickX = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+        const tickX = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
         tickX.setAttribute('x1', xScale(xMax));
         tickX.setAttribute('y1', yScale(0)); //start Y at the axis line
         tickX.setAttribute('x2', xScale(xMax));
@@ -726,7 +726,7 @@ export const ChartAxes = {
         tickX.dataset.action =  'chart-axes';
         chartGroup.append(tickX);
 
-        const labelX = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const labelX = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         labelX.setAttribute('x', xScale(xMax));
         labelX.setAttribute('y', yScale(0) + tickLength + labelDrop);   //position 30px below the tick
         labelX.setAttribute('class', options.chartClass?? '');
@@ -736,7 +736,7 @@ export const ChartAxes = {
         chartGroup.append(labelX);
 
         //y-axis label/s
-        const tickYMax = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+        const tickYMax = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
         tickYMax.setAttribute('x1', xScale(0) - tickLength);
         tickYMax.setAttribute('y1', yScale(yMax));
         tickYMax.setAttribute('x2', xScale(0));
@@ -746,7 +746,7 @@ export const ChartAxes = {
         tickYMax.dataset.action = 'chart-axes';
         chartGroup.append(tickYMax);
 
-        const labelYMax = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const labelYMax = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         labelYMax.setAttribute('x', xScale(0) - tickLength - labelShift);
         labelYMax.setAttribute('y', yScale(yMax) + labelDropHalf);   //position 30px below the tick
         labelYMax.setAttribute('class', options.chartClass?? '');
@@ -756,7 +756,7 @@ export const ChartAxes = {
         chartGroup.append(labelYMax);
 
         if(yMin) {
-            const tickYMin = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+            const tickYMin = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
             tickYMin.setAttribute('x1', xScale(0) - tickLength);
             tickYMin.setAttribute('y1', yScale(yMin));
             tickYMin.setAttribute('x2', xScale(0));
@@ -766,7 +766,7 @@ export const ChartAxes = {
             tickYMin.dataset.action = 'chart-axes';
             chartGroup.append(tickYMin);
 
-            const labelYMin = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            const labelYMin = document.createElementNS('https://www.w3.org/2000/svg', 'text');
             labelYMin.setAttribute('x', xScale(0) - tickLength - labelShift);
             labelYMin.setAttribute('y', yScale(yMin) + labelDropHalf);   //position 30px below the tick
             labelYMin.setAttribute('class', options.chartClass?? '');
@@ -806,7 +806,7 @@ export const ChartAxes = {
                 const tickY = topMargin + chartHeight - (i * tickYJump);
                 const labelY = tickY + labelShift;
                 
-                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+                const tick = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
                 tick.setAttribute('x1', tickXleft);
                 tick.setAttribute('y1', tickY); //start Y at the axis line
                 tick.setAttribute('x2', tickXright);
@@ -814,7 +814,7 @@ export const ChartAxes = {
                 tick.setAttribute('class', options.chartClass?? ''); //end y below the axis line for 'outside' appearance
                 chartGroup.append(tick);
 
-                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                const label = document.createElementNS('https://www.w3.org/2000/svg', 'text');
                 label.setAttribute('x', labelX);
                 label.setAttribute('y', labelY);   //position 30px below the tick
                 label.setAttribute('class', options.chartClass?? '');
@@ -833,7 +833,7 @@ export const ChartAxes = {
             const tickYbottom = topMargin + chartHeight + tickLength;
             const labelY = tickYbottom + labelDrop;
             
-            const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+            const tick = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
             tick.setAttribute('x1', tickX);
             tick.setAttribute('y1', tickYtop); //start Y at the axis line
             tick.setAttribute('x2', tickX);
@@ -843,7 +843,7 @@ export const ChartAxes = {
             tick.dataset.action = 'chart-axes';
             chartGroup.append(tick);
 
-            const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            const label = document.createElementNS('https://www.w3.org/2000/svg', 'text');
             label.setAttribute('x', tickX);
             label.setAttribute('y', labelY);   //position 30px below the tick
             label.setAttribute('class', options.chartClass?? '');
@@ -881,7 +881,7 @@ export const ChartAxes = {
                 const tickY = topMargin + chartHeight - buffer/2 - (i * tickYJump);
                 const labelY = tickY + labelShift;
                 
-                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+                const tick = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
                 tick.setAttribute('x1', tickXleft);
                 tick.setAttribute('y1', tickY); //start Y at the axis line
                 tick.setAttribute('x2', tickXright);
@@ -889,7 +889,7 @@ export const ChartAxes = {
                 tick.setAttribute('class', options.chartClass?? '');
                 chartGroup.append(tick);
 
-                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                const label = document.createElementNS('https://www.w3.org/2000/svg', 'text');
                 label.setAttribute('x', labelX);
                 label.setAttribute('y', labelY);   //position 30px below the tick
                 label.setAttribute('class', options.chartClass?? '');
@@ -908,7 +908,7 @@ export const ChartAxes = {
             const tickYbottom = topMargin + chartHeight + tickLength;
             const labelY = tickYbottom + labelDrop;
             
-            const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');            
+            const tick = document.createElementNS('https://www.w3.org/2000/svg', 'line');            
             tick.setAttribute('x1', tickX);
             tick.setAttribute('y1', tickYtop); //start Y at the axis line
             tick.setAttribute('x2', tickX);
@@ -918,7 +918,7 @@ export const ChartAxes = {
             tick.dataset.action = 'chart-axes';
             chartGroup.append(tick);
 
-            const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            const label = document.createElementNS('https://www.w3.org/2000/svg', 'text');
             label.setAttribute('x', tickX);
             label.setAttribute('y', labelY);   //position 30px below the tick
             label.setAttribute('class', options.chartClass?? '');
