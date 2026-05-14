@@ -25,7 +25,7 @@ The app is completely static and requires no build step.
 
 3. Your data stored locally - no internet connection needed
 
-
+```text
 # FILE STRUCTURE #
 ├── index.html                # Main HTML file
 │
@@ -79,9 +79,9 @@ The app is completely static and requires no build step.
 ├── package.json
 ├── README.md                 # self-referential wormhole
 └── serve.py                  # pythonhole
+```
 
 # DATA STORAGE #
-
 All data is stored locally in your browser using localStorage.
 
 ## Data Backup & Restore
