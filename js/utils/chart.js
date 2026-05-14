@@ -101,12 +101,12 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         //ADD VERTICAL LINE AT TIMENOW
-        const chartGroupVert = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroupVert = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroupVert.setAttribute('component', 'time-now');
         ChartGAdd.lineSimple(chartGroupVert, vertObj, xScale, yScale);
 
         //ADD LABEL OF 'NOW'
-        const label3 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const label3 = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         label3.setAttribute('x', xScale(vertObj.x1));
         label3.setAttribute('y', yScale(yMax) + 5);   //position 30px below the tick
         label3.setAttribute('class', options.chartClass);
@@ -115,13 +115,13 @@ export const ChartComponent = {
 
         
         //ADD HORIZONTAL LINE AT BGL = HYPER & HYPO
-        const chartGroupHoriz = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroupHoriz = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroupHoriz.setAttribute('component', 'bgl-lines');
         ChartGAdd.lineSimple(chartGroupHoriz, horizObj[0], xScale, yScale); //hyper line
         ChartGAdd.lineSimple(chartGroupHoriz, horizObj[1], xScale, yScale); //hypo line
 
         //ADD LABELS OF MAX BGL
-        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const label = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         label.setAttribute('x', options.pad.left + chartWidth * 0.8);
         label.setAttribute('y', yScale(horizObj[0].y1) + 0.5*(yScale(horizObj[1].y1) - yScale(horizObj[0].y1)));   //position 30px below the tick
         label.setAttribute('class', options.chartClass);
@@ -129,7 +129,7 @@ export const ChartComponent = {
         label.textContent = 'target range';
         chartGroupHoriz.append(label);
 
-        const label2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        const label2 = document.createElementNS('https://www.w3.org/2000/svg', 'text');
         label2.setAttribute('x', xScale(0) - 15);
         label2.setAttribute('y', yScale(vertObj.y2) + 5);   //position 30px below the tick
         label2.setAttribute('class', options.chartClass);
@@ -138,7 +138,7 @@ export const ChartComponent = {
 
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroupAxes = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroupAxes = document.createElementNS('https://www.w3.org/2000/svg', 'g');
 
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroupAxes, options);
@@ -174,10 +174,10 @@ export const ChartComponent = {
         ChartAxes.tickAxis(chartGroupAxes, options, tickXArray);        
 
         //DRAW TRANSPARENT RECTANGLE FOR TARGET RANGE
-        const chartGroupBars = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroupBars = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroupBars.setAttribute('component', 'bars');
 
-        const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
         bar.setAttribute('x', xScale(0));
         bar.setAttribute('y', yScale(horizObj[0].y1));
         bar.setAttribute('width', xScale(xMax) - xScale(0));
@@ -186,7 +186,7 @@ export const ChartComponent = {
         chartGroupBars.append(bar);
 
         // DRAW PATHS
-        const chartGroupPath = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroupPath = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroupPath.setAttribute('component', 'paths');
         // ChartGAdd.pathSimple(chartGroupPath, data, xScale, yScale);
 
@@ -199,7 +199,7 @@ export const ChartComponent = {
 
         // DATA CIRCLES AND PATHS
         //use the calculated scaling to do circles and path lines
-        const chartGroupCircle = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroupCircle = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroupCircle.setAttribute('component', 'circles');
         for(let i = 0; i < data.length ; ++i) {
             const point = data[i];
@@ -265,13 +265,13 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
 
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options);
         const axisThickness = options.strokeWidth;    //because of axis thickness
 
-        // const chartGroup3 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        // const chartGroup3 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         // chartGroup3.setAttribute('component', 'ticks');
         // LABELS
         // y-axis tick marks
@@ -311,7 +311,7 @@ export const ChartComponent = {
         const rectHypoY = yScale(0.95);
         const rectTargY = yScale(1.95);
         const rectHypeY = yScale(2.95);
-        const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup2.setAttribute('component', 'bars');
 
         for(let i=0 ; i < data.length ; ++i ) {
@@ -325,7 +325,7 @@ export const ChartComponent = {
             const xLeft = xScale(tzObject.xPosition) + axisThickness;
 
             if(tzObject.showHypers) {
-                const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
                 bar.setAttribute('x', xLeft);
                 bar.setAttribute('y', rectHypeY);
                 bar.setAttribute('width', barLeftRight);
@@ -335,7 +335,7 @@ export const ChartComponent = {
             }
 
             if(tzObject.showTargets) {
-                const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
                 bar.setAttribute('x', xLeft);
                 bar.setAttribute('y', rectTargY);
                 bar.setAttribute('width', barLeftRight);
@@ -345,7 +345,7 @@ export const ChartComponent = {
             }
 
             if(tzObject.showHypos) {
-                const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
                 bar.setAttribute('x', xLeft);
                 bar.setAttribute('y', rectHypoY);
                 bar.setAttribute('width', barLeftRight);
@@ -402,7 +402,7 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options);
@@ -451,9 +451,9 @@ export const ChartComponent = {
         const lineObject = {'low': lowHiLineOffset, 'mid': 0, 'high': -lowHiLineOffset};
         // const lineWidth = options.strokeWidth + 1;
 
-        const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup2.setAttribute('component', 'bars');
-        const chartGroup3 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup3 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup3.setAttribute('component', 'lines');
 
         for(let i=0 ; i < data.length ; ++i ) {
@@ -478,7 +478,7 @@ export const ChartComponent = {
             const yMid = yScale(i) + yTweakMid - barUpDown;
             const yRight = yScale(i) + yTweakRight - barUpDown;
 
-            const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
             bar.setAttribute('x', xLeft);
             bar.setAttribute('y', yBar);
             bar.setAttribute('width', barLeftRight);
@@ -487,7 +487,7 @@ export const ChartComponent = {
             chartGroup2.append(bar);
 
             //draw left-side line
-            const lineA = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            const lineA = document.createElementNS('https://www.w3.org/2000/svg', 'line');
             lineA.setAttribute('x1', xLeft);
             lineA.setAttribute('y1', yLeft);    //this will depend on starting hi, mid, low
             lineA.setAttribute('x2', xMid);
@@ -496,7 +496,7 @@ export const ChartComponent = {
             chartGroup3.append(lineA);
 
             //draw right-side line
-            const lineB = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            const lineB = document.createElementNS('https://www.w3.org/2000/svg', 'line');
             lineB.setAttribute('x1', xMid);
             lineB.setAttribute('y1', yMid);    //this will depend on starting hi, mid, low
             lineB.setAttribute('x2', xRight);
@@ -570,7 +570,7 @@ export const ChartComponent = {
         ];
         
         //CREATE CHART GROUP
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup1.setAttribute('component', 'bars');
         
         //DRAW BARS
@@ -579,7 +579,7 @@ export const ChartComponent = {
             const length = object.length;
             const xPos = object.x;
 
-            const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
             bar.setAttribute('x', xPos);
             bar.setAttribute('y', yScale(1));
             bar.setAttribute('width', length);
@@ -593,7 +593,7 @@ export const ChartComponent = {
 
             const labelText = Math.round(100*object.ratio);            
             //add data labels for bar > 10%
-            const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            const label = document.createElementNS('https://www.w3.org/2000/svg', 'text');
             label.setAttribute('x', xPos + length/2);
             label.setAttribute('y', yScale(0.25));
             label.setAttribute('class', options.chartClass);
@@ -673,7 +673,7 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
 
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options);
@@ -699,7 +699,7 @@ export const ChartComponent = {
             const speedData = speedStoredData[keys[i]];
 
             //create group for each stored speed
-            const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
             chartGroup2.setAttribute('id', keys[i]);            
 
             //create circle for each point
@@ -788,7 +788,7 @@ export const ChartComponent = {
         const xScale = xScaleVal(options, xMin, xMax);
         const yScale = yScaleVal(options, yMin, yMax, 'T');
 
-        const chartGroupTicks = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroupTicks = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroupTicks.setAttribute('component', 'ticks');
         chartGroupTicks.setAttribute('id', 'tick-maxes');
 
@@ -808,7 +808,7 @@ export const ChartComponent = {
         for(let i = 0; i < keys.length ; ++i){
 
             //create group for each stored food
-            const chartGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            const chartGroup = document.createElementNS('https://www.w3.org/2000/svg', 'g');
             chartGroup.setAttribute('id', keys[i]);
 
             const foodData = chartFoodData[keys[i]];
@@ -978,7 +978,7 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax, 'F');
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
 
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options, 'F', yScale);
@@ -1008,7 +1008,7 @@ export const ChartComponent = {
 
         // DATA
         // CIRCLES
-        const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup2.setAttribute('component', 'circles');
 
         // data.forEach(point => {
@@ -1020,7 +1020,7 @@ export const ChartComponent = {
         }
         
         // LINES ONLY FOR 2+ POINTS
-        const chartGroup3 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup3 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup3.setAttribute('component', 'lines');
 
         for( let i=0 ; i< exLineObjects.length ; ++i) {
@@ -1106,14 +1106,14 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
 
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options, 'L');
         ChartAxes.labelAxesStandard(chartGroup1, options);
 
         // DATA BARS
-        const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup2.setAttribute('component', 'bars');
 
         for(let i=0 ; i < data.length ; ++i) {
@@ -1123,7 +1123,7 @@ export const ChartComponent = {
             if(point.y <= 0 || !point.y) continue;
             console.log(point.y);
             
-            const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
             bar.setAttribute('x', xScale(i*2 + 1));
             bar.setAttribute('y', yScale(point.y) - 2); //subtract 2 for axes width
             bar.setAttribute('width', chartWidth/(2*(data.length + 1)));
@@ -1235,7 +1235,7 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
 
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options, 'T');
@@ -1243,7 +1243,7 @@ export const ChartComponent = {
         ChartAxes.tickAxisMax(chartGroup1, options, xScale, xMax, yScale, yMax, yMin);
 
         // DATA
-        const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup2.setAttribute('component', 'circles');
         // data.forEach(point => {
         //     ChartGAdd.circleSimple(chartGroup2, point, xScale, yScale);
@@ -1264,7 +1264,7 @@ export const ChartComponent = {
 
             return htmlArray;
         }
-        const chartGroup3 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup3 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup3.setAttribute('component', 'lines');
 
         // regression lines for other points using y-intercept of ref tz - i.e. Regression through the origin
@@ -1429,7 +1429,7 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
 
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options, 'T');
@@ -1438,7 +1438,7 @@ export const ChartComponent = {
 
         // DATA
         // CIRCLES
-        const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup2.setAttribute('component', 'circles');
 
         // data.forEach(point => {
@@ -1462,7 +1462,7 @@ export const ChartComponent = {
             return htmlArray;
         }
         
-        const chartGroup3 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup3 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup3.setAttribute('component', 'lines');
 
         for( let i=0 ; i<nonIndexSeaLineObjects.length ; ++i) {
@@ -1565,7 +1565,7 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
 
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options, 'L');
@@ -1574,13 +1574,13 @@ export const ChartComponent = {
         ChartAxes.labelAxesStandard(chartGroup1, options);
 
         // DATA
-        const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup2.setAttribute('component', 'bars');
 
         for(let i=0 ; i < data.length ; ++i) {
             const point = data[i];
             
-            const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
             bar.setAttribute('x', xScale(i*2 + 1));
             bar.setAttribute('y', yScale(point.y) - 2); //subtract 2 for axes width
             bar.setAttribute('width', chartWidth/(2*(data.length + 1)));
@@ -1589,7 +1589,7 @@ export const ChartComponent = {
             chartGroup2.append(bar);
 
             if(i === 0) {
-                const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                const bar = document.createElementNS('https://www.w3.org/2000/svg', 'rect');
                 bar.setAttribute('x', xScale(data.length*2 + 1));
                 bar.setAttribute('y', yScale(point.y) - 2);
                 bar.setAttribute('width', chartWidth/(2*(data.length + 1)));
@@ -1664,7 +1664,7 @@ export const ChartComponent = {
         const yScale = yScaleVal(options, yMin, yMax);
 
         // AXES CHARTGROUP TO ADD TO SVG
-        const chartGroup1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup1 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         
         // AXES
         ChartAxes.appendAxesChartgroup(chartGroup1, options, 'H');
@@ -1677,7 +1677,7 @@ export const ChartComponent = {
         for(let i = 0; i < xLabelArray.length ; ++i) {
             const xPosition = pad.left + i/xLabel100Percent * chartWidth;
             
-            const xLabeli = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            const xLabeli = document.createElementNS('https://www.w3.org/2000/svg', 'text');
             xLabeli.setAttribute('x', xPosition);
             xLabeli.setAttribute('y', xLabelYposition);
             xLabeli.setAttribute('class', options.chartClass);
@@ -1689,9 +1689,9 @@ export const ChartComponent = {
         ChartAxes.labelYAxis(chartGroup1, options);
         
         // DATA CIRCLES LINE
-        const chartGroup2 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup2 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup2.setAttribute('component', 'lines');
-        const chartGroup3 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const chartGroup3 = document.createElementNS('https://www.w3.org/2000/svg', 'g');
         chartGroup3.setAttribute('component', 'circles');
         
         //getting the line to meet at same point at start and end...
@@ -1706,7 +1706,7 @@ export const ChartComponent = {
             console.log(point);
 
             if( i > 0 ) {
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const line = document.createElementNS('https://www.w3.org/2000/svg', 'line');
                 line.setAttribute('x1', xScale(prevPoint.x));
                 line.setAttribute('y1', yScale(prevPoint.y));
                 line.setAttribute('x2', xScale(point.x));
@@ -1727,14 +1727,14 @@ export const ChartComponent = {
                 const xAtZero = 0;
                 const yAtZero = yAtStart - (gradientToStartPoint * xAtStart);
 
-                const lineToEnd = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const lineToEnd = document.createElementNS('https://www.w3.org/2000/svg', 'line');
                 lineToEnd.setAttribute('x1', xScale(point.x));
                 lineToEnd.setAttribute('y1', yScale(point.y));
                 lineToEnd.setAttribute('x2', xScale(xAtEnd));   //theoretical x at end
                 lineToEnd.setAttribute('y2', yScale(yAtEnd));   //theoretical y at end
                 chartGroup2.append(lineToEnd);
 
-                const lineAtZeroToFirstPoint = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const lineAtZeroToFirstPoint = document.createElementNS('https://www.w3.org/2000/svg', 'line');
                 lineAtZeroToFirstPoint.setAttribute('x1', xScale(xAtZero));
                 lineAtZeroToFirstPoint.setAttribute('y1', yScale(yAtZero));
                 lineAtZeroToFirstPoint.setAttribute('x2', xScale(xAtStart));   //theoretical x at end
