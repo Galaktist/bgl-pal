@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="page-header">
+            <h2 class="eighties-theme">
+                <img src="../images/soccer.png" height="54" alt="soccer ball">
+                Exercise
+            </h2>
+            <h2 class="modern-theme"><span class="shadow-text" data-index="font-art">⚽</span> Exercise</h2>
+            <p>Analyze how exercise affects your blood glucose levels</p>
+
+            <div id="loading-indicator">
+                <div class="eighties-loader"></div>
+                <div class="spinner"></div>
+                <p class="loading">Calculating...</p>
+            </div>
+        </div>
+
+        <!-- SECTION 1 -->
+        <!-- Exercise Factors --> 
+        <div class="card">
+            <h3 class="with-para">exercise factors</h3>
+            <p class="start-para">a lower factor (multiplier) = less insulin. 0 none (index) = 1.0</p>
+
+            <div class="wrapper last-piece unshadowed">        
+                <!-- stored factors data -->        
+                <div class="side-by-side last-piece">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Intensity</th>
+                                <th>Factor (multiplier)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="exercise-factors-tbody">
+                            <tr>
+                                <td><strong class="badge background" data-level="0 none">0 none</strong></td>
+                                <td>
+                                    <input disabled type="number" class="exercise-factor-input" data-level="0 none"
+                                        value="1.0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="1 slow">1 slow</strong></td>
+                                <td>
+                                    <input type="number" class="exercise-factor-input active" data-level="1 slow"
+                                        value="1.0" step="0.05" min="0.05">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="2 lite">2 lite</strong></td>
+                                <td>
+                                    <input type="number" class="exercise-factor-input active" data-level="2 lite" 
+                                        value="1.0" step="0.05" min="0.05">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="3 midi">3 midi</strong></td>
+                                <td>
+                                    <input type="number" class="exercise-factor-input active" data-level="3 midi" 
+                                        value="1.0" step="0.05" min="0.05">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="4 fast">4 fast</strong></td>
+                                <td>
+                                    <input type="number" class="exercise-factor-input active" data-level="4 fast" 
+                                        value="1.0" step="0.05" min="0.05">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="5 HUGE">5 HUGE</strong></td>
+                                <td>
+                                    <input type="number" class="exercise-factor-input active" data-level="5 HUGE" 
+                                        value="1.0" step="0.05" min="0.05">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- stored factors chart - no empty state needed -->
+                <div class="side-by-side chart medium" id="model-exercise-factors-bars">
+                    <h3>exercise intensity vs factor</h3>
+                    <div class="full-state">   
+                        <!-- chart goes in here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    
+
+        <!-- SECTION 2 -->
+        <!-- SHOW/HIDE DATA -->
+        <div class="card">
+            <div id="data-toggle" class="toggle-switch">
+                <button class="toggle-option" data-action="show-exercise-data">show data</button>
+                <button class="toggle-option" data-action="hide-exercise-data">hide</button>
+            </div>
+
+            <div id="raw-data-charts-section" class="card show-no-content">
+                <h3>criteria</h3>
+                <ul>
+                    <li id="exercise-filters">
+                        <td>intensity (click to filter out):</td>
+                        <td>
+                            <button class="badge icon-style small" data-level="0 none">0</button>
+                        </td>
+                        <td>
+                            <button class="badge icon-style small" data-level="1 slow">1</button>
+                        </td>
+                        <td>
+                            <button class="badge icon-style small" data-level="2 lite">2</button>
+                        </td>
+                        <td>
+                            <button class="badge icon-style small" data-level="3 midi">3</button>
+                        </td>
+                        <td>
+                            <button class="badge icon-style small" data-level="4 fast">4</button>
+                        </td>
+                        <td>
+                            <button class="badge icon-style small" data-level="5 HUGE">5</button>
+                        </td>
+                    </li>
+                    <li>no food entry</li>
+                    <li>start and end bgl readings available</li>
+                </ul>
+                <br>
+
+                <h3>calculations:</h3>
+                <table id="exercise-data-table">
+                    <thead>
+                        <tr>
+                            <th>date</th>
+                            <th>exercise</th>
+                            <th>bgl ⇡</th>
+                            <th colspan="4">INSULIN</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>type</th>
+                            <th>units</th>
+                            <th>action %</th>
+                            <th>estimated ⇢</th>
+                        </tr>
+                    </thead>
+                    <tbody id="exercise-tbody">
+                        <!-- chart data goes in here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- SECTION 3 -->
+        <!-- bgl vs insulin by exercise chart -->
+        <div class = "card">        
+            <h3>raw data charts</h3>
+
+            <div class="side-by-side chart large" id="raw-exercise-line-chart">
+                <h3>bgl vs estimated insulin, by exercise</h3>
+                <div class="full-state">   
+                    <!-- chart goes in here -->
+                </div>
+                <div class="empty-state icon">
+                    no data available yet to view
+                </div>
+            </div>
+
+            <div class="wrapper last-piece">
+                <!-- ex factors estimated -->
+                <div class="side-by-side">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Intensity</th>
+                                <th>Factor (estimated)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="exercise-factors-raw-tbody">
+                            <tr>
+                                <td><strong class="badge background" data-level="0 none">0 none</strong></td>
+                                <td class="input-with-tooltip">
+                                    <input disabled type="number" class="exercise-factor-input" data-level="0 none"
+                                        value="1.0">
+                                    <span class="tooltip" data-level="0 none">is auto set to 1</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="1 slow">1 slow</strong></td>
+                                <td class="input-with-tooltip">
+                                    <input disabled type="number" class="exercise-factor-input" data-level="1 slow"
+                                        value="" placeholder="TBC">
+                                    <span class="tooltip" data-level="1 slow"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="2 lite">2 lite</strong></td>
+                                <td class="input-with-tooltip">
+                                    <input disabled type="number" class="exercise-factor-input" data-level="2 lite" 
+                                        value="" placeholder="TBC">
+                                    <span class="tooltip" data-level="2 lite"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="3 midi">3 midi</strong></td>
+                                <td class="input-with-tooltip">
+                                    <input disabled type="number" class="exercise-factor-input" data-level="3 midi" 
+                                        value="" placeholder="TBC">
+                                    <span class="tooltip" data-level="3 midi"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="4 fast">4 fast</strong></td>
+                                <td class="input-with-tooltip">
+                                    <input disabled type="number" class="exercise-factor-input" data-level="4 fast" 
+                                        value="" placeholder="TBC">
+                                    <span class="tooltip" data-level="4 fast"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong class="badge background" data-level="5 HUGE">5 HUGE</strong></td>
+                                <td class="input-with-tooltip">
+                                    <input disabled type="number" class="exercise-factor-input" data-level="5 HUGE" 
+                                        value="" placeholder="TBC">
+                                    <span class="tooltip" data-level="5 HUGE"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                
+                </div>
+
+                <div class="side-by-side chart medium" id="raw-exercise-bar-chart">
+                    <h3>exercise intensity vs factory</h3>
+                    <div class="full-state">                    
+                        <!-- chart goes in here -->
+                    </div>
+                    <div class="empty-state icon">
+                        no data available yet to view    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script type="module" src="../js/views/statistics/exercise.js"></script>
+
+    </body>
+</html>

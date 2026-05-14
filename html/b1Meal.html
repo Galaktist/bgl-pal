@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="page-header">        
+            <h2 class="eighties-theme">
+                <img src="../images/hamburger.png" height="54" alt="pixellated hamburger">
+                Meal
+            </h2>
+            <h2 class="modern-theme"><span class="shadow-text" data-index="font-art">🍔</span> Meal</h2>
+            <p>Analyze how food affects your blood glucose levels</p>
+
+            <div id="loading-indicator">
+                <div class="eighties-loader"></div>
+                <div class="spinner"></div>
+                <p class="loading">Calculating...</p>
+            </div>
+        </div>
+
+        <!-- put graph first with dropdown box for selecting from dropdown -->
+        <div class="card">
+            <div class="wrapper">
+                
+                <div class="side-by-side" id="food-selector">
+
+                    <h3>choose up to 3 foods to chart</h3>
+                    <table>
+                        <tbody>
+                            <tr id="food-heading-row">
+                                <td>                                    
+                                </td>
+                                <td>
+                                    <select class="color-primary" id="food-selected-1" data-index="food-chart-1">
+                                        <!-- food options go in here -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="color-secondary" id="food-selected-2" data-index="food-chart-2">
+                                        <!-- food options go in here -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="color-tertiary" id="food-selected-3" data-index="food-chart-3">
+                                        <!-- food options go in here -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr id="food-bgl-row">
+                                <td>bgl ⇡</td>
+                                <td class="color-primary" data-index="food-chart-1"></td>
+                                <td class="color-secondary" data-index="food-chart-2"></td>
+                                <td class="color-tertiary" data-index="food-chart-3"></td>
+                            </tr>
+                            <tr id="food-insulin-row">
+                                <td>insulin ⇢</td>
+                                <td class="color-primary" data-index="food-chart-1"></td>
+                                <td class="color-secondary" data-index="food-chart-2"></td>
+                                <td class="color-tertiary" data-index="food-chart-3"></td>
+                            </tr>
+                        </tbody>
+                    </table>                
+                </div>
+
+                <!--
+                    const width = options.width || 400;
+                    const height = options.height || 400;
+                    const padding = options.padding || { top: 20, right: 40, bottom: 60, left: 60 };
+
+                    const chartWidth = width - padding.left - padding.right; eg 400 - 60 - 40 = 300
+                    const chartHeight = height - padding.top - padding.bottom; eg 400 - 20 - 60 = 320
+                -->
+                
+                <div id="full-state" class="side-by-side chart">
+                    <h3 id="meal-chart-head">bgl change vs insulin for 1 serving</h3>
+                    <div id="meal-chart" class="chart-container">
+                        <svg id="food-comparison-svg" width="100%" height="400" viewBox="0 0 400 400" preserveAspectRatio="none">
+                            <g component="axes" id="axes">
+                                <line x1="60" y1="180" x2="360" y2="180" class="chart-md"></line>
+                                <line x1="60" y1="20" x2="60" y2="340" class="chart-md"></line>
+                                <text x="210" y="380" class="chart-md">insulin units (estimated)</text>
+                                <text x="10" y="210" class="chart-md" transform="rotate(-90, 10, 190)" id="y-axis-label">—   bgl change (unit)   +</text>                            
+                            </g>
+                            <!-- charts goes in here as 'g' groupings-->
+                        </svg>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="last-piece unshadowed">
+                <!-- See & change food and then save it to rule of thumb -->    
+                <h3 id="comparison-chart-heading">rule of thumb for (season) and (timezone)</h3>
+                <br>
+                <form>
+                    <div>
+                        <label for="thumb-food-name">food name</label>
+                        <input type="text" id="thumb-food-name" data-index="name" value="" placeholder="eg, Glucose">
+                    </div>
+                    <div>
+                        <label for="thumb-serving-size">serving size</label>
+                        <input type="text" id="thumb-serving-size" data-index="serving" value="" placeholder="eg, 2 teaspoons">
+                    </div>
+                    <div>
+                        <label id="thumb-insulin-text" for="thumb-insulin-needed">insulin to cover 1 serving</label>
+                        <input type="number" id="thumb-insulin-needed" data-index="insulin" value="" placeholder="eg, 5 (units)" step="0.1" min="1">
+                    </div>
+                    <div>
+                        <label for="thumb-category">meal time</label>
+                        <select id="thumb-category" data-index="food-category" value="">
+                            <!-- food cats in here -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="thumb-group">food group</label>
+                        <select id="thumb-group" data-index="food-group">
+                            <!-- food groups in here -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="thumb-glycemic-index">glycemic index</label>
+                        <select id="thumb-glycemic-index" data-index="food-gi">
+                            <option value="very slow">very slow</option>
+                            <option value="slow">slow</option>
+                            <option value="medium">medium</option>
+                            <option value="fast">fast</option>
+                            <option value="very fast">very fast</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="thumb-notes">notes</label>
+                        <input type="text" id="thumb-notes" data-index="notes" value="" placeholder="eg, I love this!">
+                    </div>
+                    <div class="input-with-tooltip">
+                        <span class="tooltip adjust-left hidden">this food's name already exists in Food Database</span>
+                        <button class="outset-lg" id="thumb-rule-button">save to Food Database</button>
+                    </div>                
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Meal Data Analysis</h3>
+            <div id="meal-data-toggle" class="toggle-switch">
+                <button class="toggle-option" data-action="show-data">show data</button>
+                <button class="toggle-option" data-action="hide-data">hide</button>
+            </div>
+            <br><br>
+
+            <!-- calculations -->
+            <div id="results-section" class="show-no-content">
+                <h3>Criteria</h3>
+                <ul>
+                    <li>Exercise intensity = 0 (no exercise)</li>
+                    <li>Includes bolus insulin</li>
+                    <li>Only 1 food entry in that Log Entry</li>
+                    <li>Start and end BGL readings available</li>
+                </ul>
+
+                <table id="meal-data-table">
+                    <thead>
+                        <tr>
+                            <th>date</th>
+                            <th>food</th>
+                            <th>serve</th>
+                            <th>bgl ⇡</th>
+                            <th colspan="4">INSULIN</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>type</th>
+                            <th>units</th>
+                            <th>action %</th>
+                            <th>estimated ⇢</th>
+                        </tr>
+                    </thead>
+                    <tbody id="meal-tbody">
+                        <!-- chart goes in here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script type="module" src="../js/views/statistics/meal.js"></script>
+
+    </body>
+</html>
