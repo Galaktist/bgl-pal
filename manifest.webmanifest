@@ -1,0 +1,17 @@
+{
+  "name": "Github Page Offline",
+  "short_name": "GPPWA",
+  "description": "Bgl Pal as an offline Progressive Web App",
+  "scope": "/bgl-pal/",
+  "start_url": "/bgl-pal/",
+  "background_color": "#BDEDFF",
+  "theme_color": "#5CB3FF",
+  "display": "standalone", 
+  "icons": [
+      {
+        "src": "/bgl-pal/images/bglPalLogo_128_128.png",
+        "type": "image/png",
+        "sizes": "128x128"
+      }
+  ]
+}
