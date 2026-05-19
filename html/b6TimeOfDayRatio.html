@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About</title>
+        <link rel="stylesheet" href="../styles/style.css">
+    </head>
+
+    <body>
+        <div class="page-header">
+            <h2 class="eighties-theme">
+                <img src="../images/clock.png" height="70" alt="clock">
+                Time of Day Ratio
+            </h2>
+            <h2 class="modern-theme"><span class="shadow-text" data-index="font-art">🕒</span> Time of Day Ratio</h2>
+            <p>estimate how bgl and insulin react differently at different times of the day</p>
+
+            <div id="loading-indicator">
+                <div class="eighties-loader"></div>
+                <div class="spinner"></div>
+                <p class="loading">Calculating...</p>
+            </div>
+        </div>
+
+        <!-- models and then raw data -->
+        <div class="card section-divider">
+            <h3>PART A: MODELLING</h3>
+            <p>numbers here will be used for other pages' calculations</p>
+        </div>
+        
+        <!-- SECTION 1: INSULIN MODEL -->
+        <!-- need toggler button for timezone chosen in default values (or here) -->
+        <div class="card">
+            <h3 class="with-para" id="insulin-in-timezone-table">TIMEZONE factors in <span class="">REFERENCE SEASON</span></h3>
+            <p class="start-para">A lower Factor (multiplier) means less insulin needed. Index timezone = 1.0</p>     
+            <div class="wrapper last-piece unshadowed">
+                <div class="">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>timezone</th>
+                                <th>1U insulin covers glucose (g)</th>
+                                <th id="mmol-or-mgdl-th">1U insulin drops BGL ()</th>
+                                <th>timezone factor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timezone-defaults-tbody">
+                            <!-- tz data table goes in here -->
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+
+                <div class="chart medium" id="model-timezone-day-chart">
+                    <h3>timezone factors over a day</h3>
+                    <div class="full-state">   
+                        <!-- chart goes in here -->
+                    </div>
+                    <!-- always have default data -->
+                </div>
+            </div>
+            
+            <br>
+            <p class="end-para">Insulin potency can change throughout the day. Use data and charts below to estimate your changes.
+            </p>
+        </div>
+        
+        <!-- SECTION 2: SEASON MODEL -->
+        <div class="card">
+            <h3 class="with-para">SEASON Factors</h3>
+            <p class="start-para">A lower Factor (multiplier) means less insulin needed. Index season = 1.0</p>
+            <div class="wrapper last-piece unshadowed">            
+                <div class="">                
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Season</th>
+                                <th>Factor (multiplier)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="seasonal-factors-tbody">
+                            <tr data-season="Summer">
+                                <td>
+                                    <button class="toggle-option" data-season="Summer">
+                                        <strong>Summer</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input type="number" class="seasonal-factor-input" data-season="Summer" value="2.0" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Autumn">
+                                <td>
+                                    <button class="toggle-option" data-season="Autumn">
+                                        <strong>Autumn</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input type="number" class="seasonal-factor-input" data-season="Autumn" value="2.0" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Winter">
+                                <td>
+                                    <button class="toggle-option" data-season="Winter">
+                                        <strong>Winter</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input type="number" class="seasonal-factor-input" data-season="Winter" value="2.0" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Spring">
+                                <td>
+                                    <button class="toggle-option" data-season="Spring">
+                                        <strong>Spring</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input type="number" class="seasonal-factor-input" data-season="Spring" value="2.0" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="chart medium" id="model-season-year-chart">
+                    <h3>season factors over a year</h3>
+                    <div class="full-state">   
+                        <!-- chart goes in here -->
+                    </div>
+                    <!-- always have default data -->
+                </div>
+            </div>
+        </div>
+            
+
+        <!-- FOR REFERENCE FOOD -->
+        <!-- datalist is invisible -->
+        <!-- eslint-disable-next-line html/use-baseline -->
+        <datalist id="all-foods-list">
+            <!-- render food dictionary here -->
+        </datalist>
+
+        <!-- SECTION B1 -->
+        <div class="section-divider card">
+            <h3>PART B1: USING RAW DATA -> reference food</h3>
+            <p>the reference food is for estimating 2 things for PART A MODELLING above,</p>
+            <p>1] effect of insulin on bgl</p>
+            <p>2] effect of glucose on bgl</p>        
+        </div>
+
+        <!-- B1.2: TIMEZONE -->
+        <div class="card">
+            <h3 id="timezone-raw-heading">TIMEZONE analysis -> using (season) for (food)</h3>
+            <div id="raw-timezone-toggles" class="toggle-switch">
+                <button class="toggle-option" data-action="show-data">show</button>
+                <button class="toggle-option" data-action="hide-data">hide</button>
+            </div>
+            
+            <div class ="card show-no-content" id="raw-timezone-wrapper">            
+
+                <div class="last-piece unshadowed">
+                    <table id="raw-timezone-raw-stuff-table" class="smallish-table">
+                        <thead>
+                            <tr>
+                                <th>date</th>
+                                <th>time zone</th>
+                                <th>serve</th>
+                                <th>bgl ⇡</th>
+                                <th colspan="4">INSULIN</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>type</th>
+                                <th>units</th>
+                                <th>action %</th>
+                                <th>estimated ⇢</th>
+                            </tr>
+                        </thead>
+                        <tbody id="raw-timezone-raw-stuff-tbody">
+                            <!-- trs go in here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                
+                <div class="last-piece unshadowed">
+                    <table class="smallish-table">
+                        <thead>
+                            <tr>
+                                <th>timezone</th>
+                                <th>insulin</th>
+                                <th>bgl rise</th>
+                                <th>1U insulin covers glucose (g)</th>
+                                <th>1U insulin drops BGL (unit)</th>
+                                <th>estimated timezone factor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="raw-timezone-tbody">
+                            <!-- raw timezone data goes in here -->
+                        </tbody>
+                    </table>
+                    <br>
+                    <p id="use-highlight-season">Use highlighted cell values to fill in "insulin in 'early' timezone in REFERENCE SEASON" above</p>
+                    <p>x-intercept: insulin units to get 0 bgl change</p>
+                    <p>y-intercept: bgl rise from 1 serving (shown only for reference timezone)</p>
+                </div>
+
+                <div class="wrapper shadowed">
+                    <!-- day line chart -->
+                    <div class="chart large" id="raw-timezone-line-chart">
+                        <h3>insulin vs bgl</h3>
+                        <div class="full-state">   
+                            <!-- chart goes in here -->
+                        </div>
+                        <div class="empty-state icon">
+                            no data available yet to view
+                        </div>
+                    </div>
+
+                    <!-- day bar chart -->
+                    <div class="chart medium" id="raw-timezone-day-chart">
+                        <h3>timezone factors over a day</h3>
+                        <div class="full-state">   
+                            <!-- chart goes in here -->
+                        </div>
+                        <div class="empty-state icon">
+                            no data available yet to view
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+
+
+        <!-- B1.3: SEASON -->
+        <div class="card">        
+            <h3 id="seasonal-raw-heading">SEASON ANALYSIS -> using (timezone) timezone</h3>
+            <div id="raw-season-toggles" class="toggle-switch">
+                <button class="toggle-option" data-action="show-data">show</button>
+                <button class="toggle-option" data-action="hide-data">hide</button>
+            </div>
+
+            <div class ="card show-no-content" id="raw-season-wrapper">
+
+                <div class="last-piece unshadowed">
+                    <table id="raw-season-raw-stuff-table" class="smallish-table">
+                        <thead>
+                            <tr>
+                                <th>date</th>
+                                <th>season</th>
+                                <th>serve</th>
+                                <th>bgl ⇡</th>
+                                <th colspan="4">INSULIN</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>type</th>
+                                <th>units</th>
+                                <th>action %</th>
+                                <th>estimated ⇢</th>
+                            </tr>
+                        </thead>
+                        <tbody id="raw-season-raw-stuff-tbody">
+                            <!-- trs go in here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="unshadowed">
+                    <table class="smallish-table">
+                        <thead>
+                            <tr>
+                                <th>season</th>
+                                <th>insulin</th>
+                                <th>bgl rise</th>
+                                <th>1U insulin covers glucose (g)</th>
+                                <th>1U insulin drops BGL (unit)</th>
+                                <th>estimated seasonal factor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="raw-season-tbody">
+                            <tr data-season="Summer">
+                                <td>
+                                    <button class="badge background" data-season="Summer">
+                                        <strong>Summer</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-zero-change" data-season="Summer" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-bgl-rise" data-season="Summer" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-covers-glucose" data-season="Summer" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-drops-bgl" data-season="Summer" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="calculated-seasonal-factor active" data-season="Summer" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Autumn">
+                                <td>
+                                    <button class="badge background" data-season="Autumn">
+                                        <strong>Autumn</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-zero-change" data-season="Autumn" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-bgl-rise" data-season="Autumn" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-covers-glucose" data-season="Autumn" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-drops-bgl" data-season="Autumn" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="calculated-seasonal-factor active" data-season="Autumn" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Winter">
+                                <td>
+                                    <button class="badge background" data-season="Winter">
+                                        <strong>Winter</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-zero-change" data-season="Winter" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-bgl-rise" data-season="Winter" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-covers-glucose" data-season="Winter" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-drops-bgl" data-season="Winter" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="calculated-seasonal-factor active" data-season="Winter" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Spring">
+                                <td>
+                                    <button class="badge background" data-season="Spring">
+                                        <strong>Spring</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-zero-change" data-season="Spring" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-bgl-rise" data-season="Spring" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-covers-glucose" data-season="Spring" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-drops-bgl" data-season="Spring" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="calculated-seasonal-factor active" data-season="Spring" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p>Use highlighted cell values to estimate "SEASON Factors" above</p>
+                    <p>x-intercept: insulin units to get 0 bgl change</p>
+                    <p>y-intercept: bgl rise from 1 serving</p>
+                </div>
+                
+                <div class ="wrapper last-piece shadowed">
+                    <!-- full state season line -->
+                    <div class="chart large" id="raw-season-line-chart">
+                        <h3>insulin vs bgl</h3>
+                        <div class="full-state">   
+                            <!-- chart goes in here -->
+                        </div>
+                        <div class="empty-state icon">
+                            no data available yet to view
+                        </div>
+                    </div>
+
+                    <!-- full state season bar-->
+                    <div class="chart medium" id="raw-season-year-chart">
+                        <h3>season factors over a year</h3>
+                        <div class="full-state">   
+                            <!-- chart goes in here -->
+                        </div>
+                        <div class="empty-state icon">
+                            no data available yet to view
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION B2 -->
+        <div class="section-divider card">
+            <h3>PART B2: USING RAW DATA -> bolus with no food**</h3>
+            <p>bolus with no food is for estimating the effect of insulin on bgl</p>
+            <p>ALL points that meet these criteria are used:</p>
+            <p>- no food recorded</p>
+            <p>- with bolus</p>
+            <p>- 0 exercise</p>
+            <p>**in other words, a lot of points are used -> it might simply be the user forgot to record a food eaten.</p>
+        </div>
+
+        <!-- B2.2: BOLUS-NO-FOOD TIMEZONE -->
+        <div class="card">
+            <h3 id="bolus-timezone-heading">TIMEZONE analysis -> using bolus (nil food) in (Season)</h3>
+            <div id="bolus-timezone-toggles" class="toggle-switch">
+                <button class="toggle-option" data-action="show-data">show</button>
+                <button class="toggle-option" data-action="hide-data">hide</button>
+            </div>
+            
+            <div class ="card show-no-content" id="bolus-timezone-wrapper">
+                
+                <div class="last-piece unshadowed">
+                    <table id="bolus-timezone-raw-stuff-table" class="smallish-table">
+                        <thead>
+                            <tr>
+                                <th>date</th>
+                                <th>timezone</th>
+                                <th>bgl ⇡</th>
+                                <th colspan="4">INSULIN</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>type</th>
+                                <th>units</th>
+                                <th>action %</th>
+                                <th>estimated ⇢</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bolus-timezone-raw-stuff-tbody">
+                            <!-- trs go in here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="last-piece unshadowed">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>timezone</th>
+                                <th>bolus U</th>
+                                <th>bgl rise</th>
+                                <th>1U insulin drops BGL (unit)</th>
+                                <th>estimated timezone factor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bolus-timezone-tbody">
+                            <!-- raw timezone data goes in here -->
+                        </tbody>
+                    </table>
+                    <br>
+                    <p id="bolus-highlight-note">Use highlighted cell values to fill in "insulin in 'early' timezone in REFERENCE SEASON" above</p>
+                    <p>x-intercept: insulin units to get 0 bgl change</p>
+                    <p>y-intercept: bgl rise from 1 serving (shown only for reference timezone)</p>
+                </div>
+
+
+                <div class="wrapper shadowed">
+                    <!-- day line chart -->
+                    <div class="chart large" id="bolus-timezone-line-chart">
+                        <h3>insulin vs bgl</h3>
+                        <div class="full-state">   
+                            <!-- chart goes in here -->
+                        </div>
+                        <div class="empty-state icon">
+                            no data available yet to view
+                        </div>
+                    </div>
+
+                    <!-- day bar chart -->
+                    <div class="chart medium" id="bolus-timezone-day-chart">
+                        <h3>timezone factors over a day</h3>
+                        <div class="full-state">   
+                            <!-- chart goes in here -->
+                        </div>
+                        <div class="empty-state icon">
+                            no data available yet to view
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+
+        <!-- B2.3: BOLUS-NO-FOOD SEASON -->
+        <div class="card">        
+            <h3 id="bolus-season-heading">SEASON ANALYSIS -> using (timezone) timezone</h3>
+            <div id="bolus-season-toggles" class="toggle-switch">
+                <button class="toggle-option" data-action="show-data">show</button>
+                <button class="toggle-option" data-action="hide-data">hide</button>
+            </div>
+
+            <div class ="card show-no-content" id="bolus-season-wrapper">
+
+                <div class="last-piece unshadowed">
+                    <table id="bolus-season-raw-stuff-table" class="smallish-table">
+                        <thead>
+                            <tr>
+                                <th>date</th>
+                                <th>season</th>
+                                <th>bgl ⇡</th>
+                                <th colspan="4">INSULIN</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>type</th>
+                                <th>units</th>
+                                <th>action %</th>
+                                <th>estimated ⇢</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bolus-season-raw-stuff-tbody">
+                            <!-- trs go in here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="unshadowed">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>season</th>
+                                <th>insulin</th>
+                                <th>bgl rise</th>
+                                <th>1U insulin drops BGL (unit)</th>
+                                <th>estimated seasonal factor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bolus-season-tbody">
+                            <tr data-season="Summer">
+                                <td>
+                                    <button class="badge background" data-season="Summer">
+                                        <strong>Summer</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-zero-change" data-season="Summer" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-bgl-rise" data-season="Summer" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-drops-bgl" data-season="Summer" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="calculated-seasonal-factor active" data-season="Summer" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Autumn">
+                                <td>
+                                    <button class="badge background" data-season="Autumn">
+                                        <strong>Autumn</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-zero-change" data-season="Autumn" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-bgl-rise" data-season="Autumn" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-drops-bgl" data-season="Autumn" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="calculated-seasonal-factor active" data-season="Autumn" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Winter">
+                                <td>
+                                    <button class="badge background" data-season="Winter">
+                                        <strong>Winter</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-zero-change" data-season="Winter" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-bgl-rise" data-season="Winter" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-drops-bgl" data-season="Winter" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="calculated-seasonal-factor active" data-season="Winter" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                            <tr data-season="Spring">
+                                <td>
+                                    <button class="badge background" data-season="Spring">
+                                        <strong>Spring</strong>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-zero-change" data-season="Spring" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-bgl-rise" data-season="Spring" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="seasonal-insulin-drops-bgl" data-season="Spring" placeholder="TBC" value="" unit="mmol/L" step="0.1" min="0.1">
+                                </td>
+                                <td>
+                                    <input readonly type="number" class="calculated-seasonal-factor active" data-season="Spring" placeholder="TBC" value="" step="0.1" min="0.1">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p>Use highlighted cell values to fill in "SEASON Factors" above</p>
+                    <p>x-intercept: insulin units to get 0 bgl change</p>
+                    <p>y-intercept: bgl rise from 1 serving</p>
+                </div>
+                
+                <div class ="wrapper last-piece shadowed">
+                    <!-- full state season line -->
+                    <div class="chart large" id="bolus-season-line-chart">
+                        <h3>insulin vs bgl</h3>
+                        <div class="full-state">   
+                            <!-- chart goes in here -->
+                        </div>
+                        <div class="empty-state icon">
+                            no data available yet to view
+                        </div>
+                    </div>
+
+                    <!-- full state season bar-->
+                    <div class="chart medium" id="bolus-season-year-chart">
+                        <h3>season factors over a year</h3>
+                        <div class="full-state">   
+                            <!-- chart goes in here -->
+                        </div>
+                        <div class="empty-state icon">
+                            no data available yet to view
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script type="module" src="../js/views/statistics/timeOfDayRatio.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Log</title>
+        <link rel="stylesheet" href="../styles/style.css">
+    </head>
+
+    <body>
+        <div class="page-header multi-box-container wrap" id="date-change-box">
+            <h2 class="eighties-theme">
+                <img src="../images/pencil_note.png" height="72" alt="pencil and notepad">
+                Log Entry
+            </h2>
+            <h2 class="modern-theme">
+                <span class="shadow-text" data-index="font-art">📝</span>
+                Log Entry
+            </h2>
+
+            <p id="today-heading">for <span class="emphasis lg muted">Friday the 6th of Feb</span></p>
+
+            <div class="multi-box-container row">
+                <button class="outset-md" data-action="decrease">«</button>
+                <input type="date" id="date-picker" value="1981-12-25" data-action="display" class="width-xl">
+                <button class="outset-md" data-action="increase">»</button>
+            </div>
+        </div>
+
+        <!-- datalist is invisible -->
+        <!-- eslint-disable-next-line html/use-baseline -->
+        <datalist id="all-foods-list">
+            <!-- render food dictionary here -->
+        </datalist>
+
+        <div class="card squeezed">
+            <div class="">
+                <table id="log-table" class="borders-everywhere log-entry-table">
+                    <thead id="log-thead">
+                        <th data-action="copy-yesterday-all" class="copy-function emphasis muted">tap any heading to copy over yesterday's values</th>
+                        <th data-action="copy-yesterday-column" class="copy-function" data-value="bgl">bgl</th>
+                        <th data-action="copy-yesterday-column" class="copy-function" data-value="food-diary">food diary</th>
+                        <th data-action="copy-yesterday-column" class="untinted copy-function rapid-text" data-value="rapidU">rapid</th>
+                        <th data-action="copy-yesterday-column" class="untinted copy-function medium-text" data-value="mediumU">medium</th>
+                        <th data-action="copy-yesterday-column" class="untinted copy-function slow-text" data-value="slowU">slow</th>
+                        <th data-action="copy-yesterday-column" class="copy-function" data-value="exercise">exercise</th>
+                    </thead>
+                    <tbody id="log-tbody">
+                        <!-- enter table body i.e. timezones -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <div class="page-header multi-box-container wrap">
+                <div>
+                    <h4>CSV export/import</h4>
+                </div>
+                <div>
+                    <h4>CSV options</h4>
+                </div>
+            </div>
+            
+            <div class="multi-box-container wrap">
+                
+                <div class="multi-box-container column" id="csv-holder">
+                    <button class="outset-md secondary" data-action="export-csv">📥 export CSV</button>
+                    <button class="outset-md secondary" data-action="import-csv">📥 import CSV</button>
+                </div>
+                
+                <div class="multi-box-container column">
+                    <div class="toggle-switch" id="toggle-blanks">
+                        <button class="toggle-option" data-value="yes-blanks">
+                            make blanks
+                        </button>
+                        <button class="toggle-option" data-value="no-blanks">
+                            don't
+                        </button>
+                    </div>
+
+                    <button class="outset-md" data-action="delete-empties">
+                        delete empty logs
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+        
+        <input type="file" id="csv-file-input" accept=".csv" class="hidden" data-action="handle-file-select">
+
+        <script type="module" src="../js/views/log.js"></script>
+
+    </body>
+</html>
