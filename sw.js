@@ -1,4 +1,4 @@
-var GHPATH = '/bgl-pal';
+var GHPATH = '';
 var APP_PREFIX = 'offline_';
 var VERSION = 'version_01';
 var URLS = [    
