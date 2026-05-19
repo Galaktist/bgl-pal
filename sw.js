@@ -1,6 +1,6 @@
 var GHPATH = '/bgl-pal';
 var APP_PREFIX = 'offline_';
-var VERSION = 'version_00';
+var VERSION = 'version_01';
 var URLS = [    
   `${GHPATH}/`,
   `${GHPATH}/index.html`,
