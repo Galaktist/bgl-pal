@@ -2,23 +2,23 @@
   "name": "Bgl Pal",
   "short_name": "BglPal",
   "description": "Bgl Pal as an offline Progressive Web App",
-  "scope": "/bgl-pal/",
-  "id": "/bgl-pal/",
-  "start_url": "/bgl-pal/",
+  "scope": "/",
+  "id": "/",
+  "start_url": "/",
   "background_color": "#ADDFFF",
   "theme_color": "#0059FF",
   "orientation": "portrait-primary",
   "display": "standalone",
   "screenshots": [
     {
-      "src": "images/bglPal_screenshot_d.png",
+      "src": "/images/bglPal_screenshot_d.png",
       "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Desktop Dashboard View"
     },    
     {
-      "src": "images/bglPal_screenshot_m.png",
+      "src": "/images/bglPal_screenshot_m.png",
       "sizes": "1080x1920",
       "type": "image/png",
       "form_factor": "narrow",
