@@ -33,20 +33,6 @@ const ASSETS_TO_CACHE = [
   '/js/utils/csvService.js',
   '/js/utils/helpers.js',
   '/js/utils/storage.js',
-  '/js/views/statistics/calculator.js',
-  '/js/views/statistics/exercise.js',
-  '/js/views/statistics/foodDatabase.js',
-  '/js/views/statistics/insulinSpeed.js',
-  '/js/views/statistics/meal.js',
-  '/js/views/statistics/sleep.js',
-  '/js/views/statistics/timeOfDayRatio.js',
-  '/js/views/statistics/weekPattern.js',
-  '/js/views/about.js',
-  '/js/views/home.js',
-  '/js/views/log.js',
-  '/js/views/settings.js',
-  '/js/app.js',
-  '/js/router.js',
 ]
 
 self.addEventListener('fetch', function (e) {
