@@ -28,11 +28,6 @@ const ASSETS_TO_CACHE = [
   '/html/b6TimeOfDayRatio.html',
   '/html/b7InsulinSpeed.html',
   '/html/b8Sleep.html',
-  '/js/utils/chart.js',
-  '/js/utils/chartHelpers.js',
-  '/js/utils/csvService.js',
-  '/js/utils/helpers.js',
-  '/js/utils/storage.js',
 ]
 
 self.addEventListener('fetch', function (e) {
