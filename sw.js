@@ -6,7 +6,28 @@ const CACHE_NAME = APP_PREFIX + VERSION;
 const ASSETS_TO_CACHE = [    
   '/',
   '/index.html',
-  '/styles/style.css'
+  '/styles/style.css',
+  '/fonts/Ac437_EpsonMGA_Alt.ttf',
+  '/fonts/Ac437_IBM_CGAthin.ttf',
+  '/fonts/Ac437_Phoenix_BIOS-2y.ttf',
+  '/fonts/Ac437_Phoenix_BIOS.ttf',
+  '/fonts/AtariClassicChunky-PxXP.ttf',
+  '/fonts/CasaletwoNbp-Bp4V.ttf',
+  '/fonts/MegamaxJonathanToo-YqOq2.ttf',
+  '/fonts/PixelatedEleganceRegular-ovyAA.ttf',
+  '/fonts/SpaceMono-Regular.ttf',
+  '/html/a1Home.html',
+  '/html/a2LogEntry.html',
+  '/html/a3Settings.html',
+  '/html/a5About.html',
+  '/html/b1Meal.html',
+  '/html/b2Exercise.html',
+  '/html/b3Calculator.html',
+  '/html/b4WeekPattern.html',
+  '/html/b5FoodDatabase.html',
+  '/html/b6TimeOfDayRatio.html',
+  '/html/b7InsulinSpeed.html',
+  '/html/b8Sleep.html'
 ]
 
 self.addEventListener('fetch', function (e) {
