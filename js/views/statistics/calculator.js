@@ -130,8 +130,8 @@ export const CalculatorView = {
     //==========================================================================
     //------------------ [      DECLARE + MAIN RENDER    ] ---------------------
     //==========================================================================
-    currentDate: HelpDateTime.getTodayKey(),
-    currentTime: HelpDateTime.getNowTime(),
+    currentDate: null,
+    currentTime: null,
     preferences: null,
     bglStepMinFigurative: [],
     bglStepMinLiteral: [],
@@ -173,6 +173,8 @@ export const CalculatorView = {
     //------------------      [LOAD PREFERENCES SETUP]      --------------------
     //==========================================================================
     loadPreferences() {
+        this.currentDate: HelpDateTime.getTodayKey(),
+        this.currentTime: HelpDateTime.getNowTime(),
         this.preferences = StorageService.getPreferences();
         this.previewObjects = [];   //for adding multiple preview items
         this.bglStepMinFigurative = HelpConvert.getBglStepMinFigurative();
