@@ -1,5 +1,5 @@
 const APP_PREFIX = 'bglpal_';
-const VERSION = 'v07';
+const VERSION = 'v08';
 const CACHE_NAME = APP_PREFIX + VERSION;
 
 // every file needed for offline
