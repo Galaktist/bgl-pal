@@ -2979,7 +2979,11 @@ table.border-ad-hoc tr.border-row{
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--radius-md);
     transition: background-color 0.2s;
-    font-size: var(--font-nav);
+    font-size: var(--font-xl);
+}
+
+.nav-links .dropdown-menu a {
+    font-size: var(--font-md);
 }
 
 .nav-links a:hover {
