@@ -1,5 +1,7 @@
 /*  HOME STRUCTURE  
 **  ============================================================================
+**  CALCULATE OTHER PAGES: WEEK PATTERN + CALCULATOR
+**
 **  DECLARE:
 **  preferences  -> access Stored data and update as needed
 **  current date -> to show latest date only
@@ -89,6 +91,15 @@ export const HomeView = {
             });
     },
 
+    //==========================================================================
+    //------------------- [CALCULATE OTHER PAGES] ------------------------------
+    //==========================================================================
+
+    performPreCalc() {
+        CalculatorView.calculateCalculatorData();
+        WeekPatternView.calculateWeekPattern();
+    },
+    
     //==========================================================================
     //------------------ [LOAD PREFERENCES SETUP] ------------------------------
     //==========================================================================
