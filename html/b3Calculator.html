@@ -27,29 +27,8 @@
             </div>
         </div>
 
-        <div id="daily-log-section" class="card">
-            <h3>recent logged data</h3>
-            <p id="no-data-msg" style="font-size: x-large; text-align: center;" class="">
-                NO LOG ENTRY DATA WITHIN LAST 12 HOURS AVAILABLE TO CALCULATE
-            </p>
-            <table id="daily-log-table" class="hidden smallish-table log-entry-table">
-                <thead id="daily-log-thead">
-                    <tr>
-                        <th>time</th>
-                        <th class="bgl-heading">BGL (mmol/L)</th>
-                        <th class="divider">food</th>
-                        <th>serve</th>
-                        <th class="divider rapid-text">bolus rapid</th>
-                        <th class="medium-text">bolus medium</th>
-                        <th class="divider">exercise</th>
-                    </tr>
-                </thead>
-                <tbody id="daily-log-tbody">
-                    <!-- tbody goes here -->
-                </tbody>
-            </table>
-        </div>
 
+        <!-- ESTIMATE ACTIONS -->
         <div id="future-calculation-section" class="card">
             <h3>estimate actions</h3>
             <br>
@@ -134,6 +113,44 @@
                 </button>
             </div>
 
+        <!-- PREDICTION CHART -->
+        <div class="card side-by-side chart large" id="bgl-predict-chart">
+            <h3>past and future bgl</h3>
+            <div class="full-state">   
+                <!-- chart goes in here -->
+            </div>
+            <div class="empty-state icon">
+                no data available yet to view
+            </div>
+        </div>
+
+            
+        <!-- RECENT LOGGED DATA -->
+        <div id="daily-log-section" class="card">
+            <h3>recent logged data</h3>
+            <p id="no-data-msg" style="font-size: x-large; text-align: center;" class="">
+                NO LOG ENTRY DATA WITHIN LAST 12 HOURS AVAILABLE TO CALCULATE
+            </p>
+            <table id="daily-log-table" class="hidden smallish-table log-entry-table">
+                <thead id="daily-log-thead">
+                    <tr>
+                        <th>time</th>
+                        <th class="bgl-heading">BGL (mmol/L)</th>
+                        <th class="divider">food</th>
+                        <th>serve</th>
+                        <th class="divider rapid-text">bolus rapid</th>
+                        <th class="medium-text">bolus medium</th>
+                        <th class="divider">exercise</th>
+                    </tr>
+                </thead>
+                <tbody id="daily-log-tbody">
+                    <!-- tbody goes here -->
+                </tbody>
+            </table>
+        </div>
+
+            
+            <!-- CALCULATED BY HALF-HOUR -->
             <div class="info-box" id="calc-info-show">
                 <ul>
                     <li>data is split into half-hour 'boxes'</li>
@@ -164,16 +181,6 @@
                     <!-- chart data goes in here -->
                 </tbody>
             </table>
-        </div>
-
-        <div class="card side-by-side chart large" id="bgl-predict-chart">
-            <h3>past and future bgl</h3>
-            <div class="full-state">   
-                <!-- chart goes in here -->
-            </div>
-            <div class="empty-state icon">
-                no data available yet to view
-            </div>
         </div>
 
         <script type="module" src="../js/views/statistics/calculator.js"></script>
