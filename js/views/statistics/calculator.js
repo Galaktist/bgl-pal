@@ -421,18 +421,18 @@ export const CalculatorView = {
 
             this.chartData.push({
                 x: row.x,
-                y: bglToDisplay > 0? HelpConvert.displayAsCorrectGlucoseUnit(bglToDisplay) : 0,
+                y: bglToDisplay > 0? HelpConvert.displayAsCorrectUnit(bglToDisplay) : 0,
                 time: row.time,
                 circleClass: circleClass,
                 pathClass: pathClass,
             });
 
-            if(idx === data.length -1) this.bglEndIndexed = HelpConvert.storeAsCorrectGlucoseUnit(bglToDisplay);
+            if(idx === data.length -1) this.bglEndIndexed = HelpConvert.storeAsCorrectUnit(bglToDisplay);
 
             return `
                 <tr data-index="${idx}" class="${row.time === this.currentTime? 'active' : ''}">
                     <td data-value="log-time" >${row.time}</td>
-                    <td data-value="bgl-actual" class="${classOfBgl}"><span class="badge icon-style">${HelpConvert.displayAsCorrectGlucoseUnit(bglToDisplay)}</span></td>
+                    <td data-value="bgl-actual" class="${classOfBgl}"><span class="badge icon-style">${HelpConvert.displayAsCorrectUnit(bglToDisplay)}</span></td>
                     <td data-value="glucose-calc-grams">${row.glucoseGrams?? ''}</td>
                     <td data-value="bgl-calc-up">
                         ${row.bglCalcUp === 0?
@@ -767,7 +767,7 @@ export const CalculatorView = {
         const bglChangeRequired = bglIndexedChange + bglUpFromSalad + bglUp - (bglDown * prevExFactor / exFactor); //correction + food + on-board Up - on-board down de-factored        
         const insulinRequired = Math.round(10 * bglChangeRequired * seasonFactor * exFactor / bglDropPer1U) / 10;
 
-        const glucoseRequired = -insulinRequired * glucosePer1U;
+        const glucoseRequired = Math.round(-insulinRequired * glucosePer1U);
 
         console.log(glucoseRequired, insulinRequired, glucosePer1U);
 
