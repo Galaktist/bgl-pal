@@ -38,6 +38,9 @@ import {
 import { StorageService } from '../utils/storage.js';
 import { ChartComponent } from '../utils/chart.js';
 
+import { WeekPatternView } from '../views/statistics/weekPattern.js';
+import { CalculatorView } from '../views/statistics/calculator.js';
+
 //==============================================================================
 //-------------------       [     EXPORT MODULES   ]       ---------------------
 //==============================================================================
@@ -83,6 +86,7 @@ export const HomeView = {
                 container.innerHTML = htmlContent;
                 
                 //must run function nested in here because of fetch() function running asynchronously
+                this.performPreCalc();
                 this.loadPreferences();
             })
 
